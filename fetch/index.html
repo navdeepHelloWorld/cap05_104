@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+ <style>
+    #productsContainer{
+        border:2px solid red;
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        
+    }
+    #productsContainer div{
+        border: 1px solid black;
+        width: 30%;
+        margin: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    #productsContainer img{
+        width: 100%;
+    }
+    #productsContainer h4, h5{
+        text-align: center;
+    }
+    #productsContainer h4{
+        font-size: 20px;
+    }
+    #productsContainer h5{
+        font-size: 18px;
+    }
+    #productsContainer div:hover{
+        background-color: #dad4d4;
+    }
+    #productsContainer div img:hover{
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+    #productsContainer div h4:hover{
+        color: red;
+        transition: color 0.3s ease;
+    }
+
+    
+ </style>
+</head>
+<body onload="fetchProducts()">
+    
+    <div id="productsContainer"> </div>
+   
+</body>
+</html>
+<script>
+
+    async function fetchProducts() {
+          
+        try{
+        
+
+             let response = await fetch("https://fakestoreapi.com/products")
+        let products = await response.json()
+         console.log(products)
+        let container =document.getElementById("productsContainer")
+         products.forEach((product,index)=>{
+            let productBox=document.createElement("div");
+            productBox.innerHTML=`
+            
+            <img src="${product.image}" alt="image">
+            <h4>${product.title}</h4>
+            <h5>${product.price} </h5>
+            `
+                container.appendChild(productBox)
+         })
+        }catch(error){
+            alert("failsed to fetch the products ")
+         }finally{
+            
+         }
+    }
+</script>
